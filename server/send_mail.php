@@ -11,12 +11,13 @@ $text = '<html lang="de">
     <h4>Anfrage für Fahrzeug {vehicle}</h4>
     <p>Von: {from} Bis: {to}<br />
     Frei Km: {free}<br />
-    weitere Km: {exta}€<br />
-    Preis: {price}€
+    weitere Km: {exta}<br />
+    Preis: {price}
     </p>
     <p>
     Name: {name}<br />
     Email: {email}<br />
+    Rückrufnummer: {phone}<br />
     Adresse: {address}<br />
     PLZ: {zip}<br />
     Ort: {town}<br />

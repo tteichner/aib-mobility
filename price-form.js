@@ -60,7 +60,11 @@ var priceForm = {
         }
     ],
 
-    init: function() {
+    host: null,
+
+    init: function(host) {
+        priceForm.host = host;
+
         // Bind the known values
         var choose = $('#Mietfahrzeug-auswaehlen');
         choose.html('<option disabled selected>Mietfahrzeug auswählen</option>');
@@ -94,6 +98,40 @@ var priceForm = {
             // Date from and to are just triggers for the time based price table
             priceForm.calculate();
         });
+
+        $('#request_vehicle_form').on('submit', function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var btn = form.find('input[type="submit"]');
+            btn.attr('disabled', 'disabled');
+            var data = {
+                vehicle: priceForm.selected.label,
+                from: $('#Datum-von').val(),
+                free: $('#freie-KM').val(),
+                extra: $('#weitere-KM').val(),
+                price: $('#Preis').val(),
+                to: $('#Datum-bis').val(),
+                street: $('#Strasse-Hausnummer').val(),
+                name: $('#Vor-und-Nachname').val(),
+                email: $('#E-Mail-Adresse').val(),
+                phone: $('#Telefonnummer').val(),
+                zip: $('#PLZ-Ort').val(),
+                notice: $('#Bemerkungen').val(),
+                submit: 1
+            };
+            $.post(priceForm.host, data, function() {
+                btn.removeAttr('disabled');
+                form.find('input[type="text"], input[type="tel"], input[type="email"], input[type="date"], textarea, select').val('');
+                form.addClass('success');
+                window.setTimeout(function() {
+                    btn.removeAttr('disabled');
+                }, 10000);
+            }).fail(function(res) {
+                console.log(res);
+                btn.removeAttr('disabled');
+            });
+        });
     },
 
     calculate: function() {
@@ -115,7 +153,7 @@ var priceForm = {
         }
     },
 
-    changeInclRange : function(val) {
+    changeInclRange: function(val) {
         priceForm.selectedRange = val * 1;
     },
 
@@ -160,8 +198,8 @@ var priceForm = {
         }
     },
 
-    lib : {
-        duration : function() {
+    lib: {
+        duration: function() {
             var from = $('#Datum-von').val();
             var to = $('#Datum-bis').val();
             var diff = 1;

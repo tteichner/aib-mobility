@@ -77,23 +77,39 @@ var priceForm = {
             $('head').append('<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>');
         }
 
+        // Set the statics readonly
+        $('#weitere-KM, #freie-KM, #Preis').each(function() {
+            $(this).prop('readonly', true);
+        });
+
         // Bind the change detection
         choose.on('change', function() {
+            // The change of vehicle changes everything
             if ($(this).val().match(/^\d+$/)) {
                 priceForm.selected = priceForm.offers[$(this).val()];
                 priceForm.change();
+            } else {
+                priceForm.selected = null;
+                priceForm.selectedRange = null;
+                priceForm.calculate();
             }
+        });
+        $('#Datum-von, #Datum-bis').on('change', function() {
+            // Date from and to are just triggers for the time based price table
+            priceForm.calculate();
         });
     },
 
     calculate: function() {
         var diff = priceForm.lib.duration();
         var matching = null;
-        priceForm.selected.prices.forEach(function(p) {
-            if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff) && p.inclKm === this.selectedRange) {
-                matching = p;
-            }
-        });
+        if (priceForm.selected) {
+            priceForm.selected.prices.forEach(function(p) {
+                if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff) && p.inclKm === this.selectedRange) {
+                    matching = p;
+                }
+            });
+        }
 
         var priceView = $('#Preis');
         if (matching) {

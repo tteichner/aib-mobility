@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 var priceForm = {
     selected: null,
+    selectedRange: null,
 
     offers: [
         {
@@ -86,35 +87,47 @@ var priceForm = {
     },
 
     calculate: function() {
-        var extraView = $('#weitere-KM');
+        var diff = priceForm.lib.duration();
+        var matching = null;
+        priceForm.selected.prices.forEach(function(p) {
+            if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff) && p.inclKm === this.selectedRange) {
+                matching = p;
+            }
+        });
 
+        var priceView = $('#Preis');
+        if (matching) {
+            priceView.val((matching.dayFee.amount * diff) + ',00 €');
+        } else {
+            priceView.val('-,-- €');
+        }
+    },
+
+    changeInclRange : function(val) {
+        priceForm.selectedRange = val * 1;
     },
 
     change: function() {
-        var from = $('#Datum-von').val();
-        var to = $('#Datum-bis').val();
-        var diff = 1;
-        if (from && to) {
-            from = luxon.DateTime.fromSQL(from);
-            to = luxon.DateTime.fromSQL(to);
-            diff = Math.abs(from.diff(to, ['months', 'days', 'hours', 'minutes', 'seconds']).days);
-        }
-
         if (priceForm.selected) {
             var matching = [];
+            var diff = priceForm.lib.duration();
             priceForm.selected.prices.forEach(function(p) {
                 if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff)) {
                     matching.push(p);
                 }
             });
 
-            var freeView = $('#freie-KM');
+            // fill the static extra km price
+            var extraView = $('#weitere-KM');
+            extraView.val(priceForm.selected.overUsePrice);
 
-            // update the gui
+            // update the gui to make the available prices for different included ranges selectable on demand
+            var freeView = $('#freie-KM');
             if (matching.length === 1) {
                 // 1 option found
-                var fv = $('<input class="formtext" type="number" value="' + matching[0].inclKm + '" name="freie-KM" id="freie-KM" required="" />')
+                var fv = $('<input class="formtext" type="number" value="' + matching[0].inclKm + '" name="freie-KM" id="freie-KM" required="" />');
                 freeView.replaceWith(fv);
+                priceForm.selectedRange = matching[0].inclKm;
             } else if (matching.length === 0) {
                 freeView.val('');
             } else {
@@ -126,7 +139,26 @@ var priceForm = {
                     fvs.append('<option value="' + m.inclKm + '">' + m.inclKm + '</option>');
                 });
                 freeView.replaceWith(fvs);
+                fvs.on('change', function() {
+                    priceForm.changeInclRange($(this).val());
+                });
             }
+
+            priceForm.calculate();
+        }
+    },
+
+    lib : {
+        duration : function() {
+            var from = $('#Datum-von').val();
+            var to = $('#Datum-bis').val();
+            var diff = 1;
+            if (from && to) {
+                from = luxon.DateTime.fromSQL(from);
+                to = luxon.DateTime.fromSQL(to);
+                diff = Math.abs(from.diff(to, ['months', 'days', 'hours', 'minutes', 'seconds']).days);
+            }
+            return diff;
         }
     }
 }

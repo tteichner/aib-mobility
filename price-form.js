@@ -3,6 +3,8 @@ $(document).ready(function() {
 });
 
 var priceForm = {
+    selected: null,
+
     offers: [
         {
             label: 'Kleinwagen'
@@ -62,11 +64,70 @@ var priceForm = {
     ],
 
     init: function() {
+        // Bind the known values
         var choose = $('#Mietfahrzeug-auswaehlen');
         choose.html('<option disabled selected>Mietfahrzeug auswählen</option>');
         priceForm.offers.forEach(function(o, idx) {
             choose.append('<option value="' + idx + '">' + o.label + '</option>');
         });
+
+        // Import luxon from cdn if not included from local server
+        if (typeof luxon === 'undefined') {
+            $('head').append('<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>');
+        }
+
+        // Bind the change detection
+        choose.on('change', function() {
+            if ($(this).val().match(/^\d+$/)) {
+                priceForm.selected = priceForm.offers[$(this).val()];
+                priceForm.change();
+            }
+        });
+    },
+
+    calculate: function() {
+        var extraView = $('#weitere-KM');
+
+    },
+
+    change: function() {
+        var from = $('#Datum-von').val();
+        var to = $('#Datum-bis').val();
+        var diff = 1;
+        if (from && to) {
+            from = luxon.DateTime.fromSQL(from);
+            to = luxon.DateTime.fromSQL(to);
+            diff = Math.abs(from.diff(to, ['months', 'days', 'hours', 'minutes', 'seconds']).days);
+        }
+
+        if (priceForm.selected) {
+            var matching = [];
+            priceForm.selected.prices.forEach(function(p) {
+                if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff)) {
+                    matching.push(p);
+                }
+            });
+
+            var freeView = $('#freie-KM');
+
+            // update the gui
+            if (matching.length === 1) {
+                // 1 option found
+                var fv = $('<input class="formtext" type="number" value="' + matching[0].inclKm + '" name="freie-KM" id="freie-KM" required="" />')
+                freeView.replaceWith(fv);
+            } else if (matching.length === 0) {
+                freeView.val('');
+            } else {
+                // multiple options available
+                var fvs = $('<select class="formtext" name="freie-KM" id="freie-KM" required="">' +
+                    '<option value="" disabled selected>incl. KM Option wählen</option>' +
+                    '</select>');
+                matching.forEach(function(m) {
+                    fvs.append('<option value="' + m.inclKm + '">' + m.inclKm + '</option>');
+                });
+                freeView.replaceWith(fvs);
+            }
+        }
     }
 }
 

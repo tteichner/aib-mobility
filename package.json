@@ -2,8 +2,8 @@
   "name": "aib-mobility",
   "version": "0.5.0",
   "scripts": {
-    "start": "ng serve --port 4200 --host 0.0.0.0",
-    "lint": "ng lint"
+    "prebuild": "rm -rf dist",
+    "build": "mkdir dist && cat polyfill.js > dist/calculate.js && cat price-form.js >> dist/calculate.js"
   },
   "private": true,
   "dependencies": {},

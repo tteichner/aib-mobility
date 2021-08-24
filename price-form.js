@@ -174,7 +174,3 @@ var priceForm = {
         }
     }
 };
-
-$(document).ready(function() {
-    priceForm.init();
-});

@@ -107,7 +107,7 @@ var priceForm = {
             e.preventDefault();
 
             var form = $(this);
-            var btn = form.find('input[type="submit"]');
+            var btn = form.find('button[type="submit"]');
             btn.attr('disabled', 'disabled');
             var data = {
                 vehicle: priceForm.selected.label,
@@ -143,7 +143,7 @@ var priceForm = {
         var matching = null;
         if (priceForm.selected) {
             priceForm.selected.prices.forEach(function(p) {
-                if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff) && p.inclKm === this.selectedRange) {
+                if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff) && p.inclKm === priceForm.selectedRange) {
                     matching = p;
                 }
             });
@@ -179,7 +179,7 @@ var priceForm = {
             var freeView = $('#freie-KM');
             if (matching.length === 1) {
                 // 1 option found
-                var fv = $('<input class="formtext" type="number" value="' + matching[0].inclKm + '" name="freie-KM" id="freie-KM" required="" />');
+                var fv = $('<input class="formtext" type="number" readonly value="' + matching[0].inclKm + '" name="freie-KM" id="freie-KM" required="" />');
                 freeView.replaceWith(fv);
                 priceForm.selectedRange = matching[0].inclKm;
             } else if (matching.length === 0) {

@@ -1,17 +1,11 @@
-<form>
+<form method="post" action="" id="request_vehicle_form">
 <div class="section group">	
-<div class="col span_1_of_3"><label>Mietfahrzeug*<br></label>
-<select class="formtext" name="Mietfahrzeug-auswaehlen" id="Mietfahrzeug-auswaehlen" name="Mietfahrzeug-auswaehlen" required="required" aria-required="true">
-<option disabled="null" selected="null">Mietfahrzeug auswählen</option>
-<option value="Mietfahrzeug auswählen" id="Mietfahrzeug-auswaehlen" name="Mietfahrzeug-auswaehlen">Mietfahrzeug auswählen</option>
-<option value="Kleinwagen" id="Kleinwagen" name="Kleinwagen">Kleinwagen</option>
-<option value="Mittelklasse" id="Mittelklasse" name="Mittelklasse">Mittelklasse</option>
-<option value="SUV" id="SUV" name="SUV">SUV</option>
-<option value="9-Sitzer Bus" id="9-Sitzer Bus" name="9-Sitzer Bus">9-Sitzer Bus</option></select></div>
+<div class="col span_1_of_3"><label for="Mietfahrzeug-auswaehlen">Mietfahrzeug*<br></label>
+<select class="formtext" id="Mietfahrzeug-auswaehlen" name="Mietfahrzeug-auswaehlen" required="required" aria-required="true"></select></div>
 	
-<div class="col span_1_of_3"><label>Datum von*<br></label>
+<div class="col span_1_of_3"><label for="Datum-von">Datum von*<br></label>
 <input class="formtext" type="date" id="Datum-von" name="Datum-von" required></div>
-	
+
 <div class="col span_1_of_3"><label>Datum bis*<br></label>
 <input class="formtext" type="date" id="Datum-bis" name="Datum-bis" required></div></div>
 	

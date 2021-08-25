@@ -2,8 +2,8 @@
   "name": "aib-mobility",
   "version": "0.5.0",
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "mkdir dist && cat polyfill.js > dist/calculate.js && cat price-form.js >> dist/calculate.js"
+    "prebuild": "rm -rf dist-form",
+    "build": "mkdir dist-form && cat polyfill.js > dist-form/calculate.js && cat price-form.js >> dist-form/calculate.js"
   },
   "private": true,
   "dependencies": {},

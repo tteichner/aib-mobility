@@ -73,8 +73,14 @@
 </main>
 	
 	
-<script src="style/jquery.js"></script>
-<script src="style/hp.js"></script>
-<script src="dist/aos.js"></script>
-<script>;setTimeout(function() {AOS.init()}, 500);</script>
+<script type="text/javascript" src="style/jquery.js"></script>
+<script type="text/javascript" src="style/hp.js"></script>
+<script type="text/javascript" src="dist/aos.js"></script>
+<script type="text/javascript" src="/dist-form/calculate.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        priceForm.init('/server/send_mail.php');
+        setTimeout(function() {AOS.init()}, 500);
+    });
+</script>
 </body>

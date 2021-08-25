@@ -65,6 +65,10 @@ var priceForm = {
     init: function(host) {
         priceForm.host = host;
 
+        if (!$('#request_vehicle_form').length) {
+            return;
+        }
+
         // Bind the known values
         var choose = $('#Mietfahrzeug-auswaehlen');
         choose.html('<option disabled selected>Mietfahrzeug auswählen</option>');

@@ -4,13 +4,166 @@ var priceForm = {
 
     offers: [
         {
-            label: 'Kleinwagen'
+            label: 'Kleinwagen',
+            overUsePrice: 0.20,
+            prices: [
+                {
+                    inclKm: 100,
+                    dayFee: {
+                        from: 1,
+                        to: 3,
+                        amount: 38
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 1,
+                        to: 3,
+                        amount: 45
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 4,
+                        to: 7,
+                        amount: 36
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 8,
+                        to: 10,
+                        amount: 34
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 11,
+                        to: 13,
+                        amount: 32
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 14,
+                        to: -1,
+                        amount: 29
+                    }
+                }
+            ]
         },
         {
-            label: 'Mittelklasse'
+            label: 'Mittelklasse',
+            overUsePrice: 0.20,
+            prices: [
+                {
+                    inclKm: 100,
+                    dayFee: {
+                        from: 1,
+                        to: 3,
+                        amount: 58
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 1,
+                        to: 3,
+                        amount: 65
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 4,
+                        to: 7,
+                        amount: 62
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 8,
+                        to: 10,
+                        amount: 58
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 11,
+                        to: 13,
+                        amount: 55
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 14,
+                        to: -1,
+                        amount: 49
+                    }
+                }
+            ]
         },
         {
-            label: 'SUV'
+            label: 'SUV',
+            overUsePrice: 0.30,
+            prices: [
+                {
+                    inclKm: 100,
+                    dayFee: {
+                        from: 1,
+                        to: 3,
+                        amount: 99
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 1,
+                        to: 3,
+                        amount: 115
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 4,
+                        to: 7,
+                        amount: 105
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 8,
+                        to: 10,
+                        amount: 102
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 11,
+                        to: 13,
+                        amount: 99
+                    }
+                },
+                {
+                    inclKm: 200,
+                    dayFee: {
+                        from: 14,
+                        to: -1,
+                        amount: 95
+                    }
+                }
+            ]
         },
         {
             label: '9-Sitzer Bus',
@@ -159,6 +312,7 @@ var priceForm = {
 
     changeInclRange: function(val) {
         priceForm.selectedRange = val * 1;
+        priceForm.calculate();
     },
 
     change: function() {

@@ -14,18 +14,6 @@ class Mailer
     private $config;
 
     /**
-     * If you change one of these, please check the other for fixes as well
-     *
-     * @const Pattern to match RFC 2047 charset encodings in mail headers
-     */
-    const rfc2047header = '/=\?([^ ?]+)\?([BQbq])\?([^ ?]+)\?=/';
-
-    /**
-     * Header spaces
-     */
-    const rfc2047header_spaces = '/(=\?[^ ?]+\?[BQbq]\?[^ ?]+\?=)\s+(=\?[^ ?]+\?[BQbq]\?[^ ?]+\?=)/';
-
-    /**
      * Mailer constructor.
      * @param string $brand
      */

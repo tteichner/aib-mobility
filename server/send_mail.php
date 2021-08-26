@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
     $keys = [];
     $vals = [];
     foreach ($_POST as $k => $val) {
-        $keys[] = $k;
+        $keys[] = '{' . $k . '}';
         $vals[] = strip_tags($val);
     }
 

@@ -31,7 +31,7 @@ This will create the form and publish it in the dist folder
 <html lang="de">
 <head>
     <title></title>
-    <script type="text/javascript" src="/dist/calculate.js"></script>
+    <script type="text/javascript" src="/dist-form/calculate.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             priceForm.init('/server/send_mail.php');

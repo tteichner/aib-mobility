@@ -3,7 +3,7 @@
   "version": "0.5.0",
   "scripts": {
     "prebuild": "rm -rf dist-form",
-    "build": "mkdir dist-form && cat polyfill.js > dist-form/calculate.js && cat price-form.js >> dist-form/calculate.js"
+    "build": "mkdir dist-form && cat polyfill.js > dist-form/calculate.js && cat price-form.js >> dist-form/calculate.js && cat contact-form.js >> dist-form/calculate.js"
   },
   "private": true,
   "dependencies": {},

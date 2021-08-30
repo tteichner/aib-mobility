@@ -67,6 +67,12 @@ W&nbsp;&nbsp;<a href="index.php" class="l2">www.aib-mobility.de</a></p></div></d
 	
 	
 <script src="style/jquery.js"></script>
+<script type="text/javascript" src="/dist-form/calculate.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        contactForm.init('/server/send_contact_mail.php');
+    });
+</script>
 <script src="style/hp.js"></script>
 <script src="dist/aos.js"></script>
 <script>;setTimeout(function() {AOS.init()}, 500);</script>

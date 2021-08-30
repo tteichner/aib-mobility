@@ -19,7 +19,7 @@ var contactForm = {
                 notice: $('#Nachricht').val(),
                 submit: 1
             };
-            $.post(priceForm.host, data, function() {
+            $.post(contactForm.host, data, function() {
                 btn.removeAttr('disabled');
                 form.find('input[type="text"], input[type="tel"], input[type="email"], input[type="date"], textarea, select').val('');
                 form.addClass('success');

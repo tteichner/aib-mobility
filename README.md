@@ -37,6 +37,12 @@ This will create the form and publish it in the dist folder
             priceForm.init('/server/send_mail.php');
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            contactForm.init('/server/send_contact_mail.php');
+        });
+    </script>
 </head>
 </html>
 ````

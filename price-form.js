@@ -235,7 +235,7 @@ var priceForm = {
         }
 
         // Set the statics readonly
-        $('#weitere-KM, #freie-KM, #Preis').each(function() {
+        $('#freie-KM, #Preis').each(function() {
             $(this).prop('readonly', true);
         });
 
@@ -251,7 +251,7 @@ var priceForm = {
                 priceForm.calculate();
             }
         });
-        $('#Datum-von, #Datum-bis').on('change', function() {
+        $('#weitere-KM, #Datum-von, #Datum-bis').on('change', function() {
             // Date from and to are just triggers for the time based price table
             priceForm.calculate();
         });
@@ -269,11 +269,11 @@ var priceForm = {
                 extra: $('#weitere-KM').val(),
                 price: $('#Preis').val(),
                 to: $('#Datum-bis').val(),
-                street: $('#Strasse-Hausnummer').val(),
+                address: $('#Strasse-Hausnummer').val(),
                 name: $('#Vor-und-Nachname').val(),
                 email: $('#E-Mail-Adresse').val(),
                 phone: $('#Telefonnummer').val(),
-                zip: $('#PLZ-Ort').val(),
+                town: $('#PLZ-Ort').val(),
                 notice: $('#Bemerkungen').val(),
                 submit: 1
             };
@@ -304,7 +304,10 @@ var priceForm = {
 
         var priceView = $('#Preis');
         if (matching) {
-            priceView.val((matching.dayFee.amount * diff) + ',00 €');
+            // fill the static extra km price
+            var extraView = $('#weitere-KM');
+            var extra = extraView.val() * priceForm.selected.overUsePrice;
+            priceView.val(((matching.dayFee.amount * diff + extra).toFixed(2) + '').replace('.', ',') + ' €');
         } else {
             priceView.val('-,-- €');
         }
@@ -325,10 +328,6 @@ var priceForm = {
                 }
             });
 
-            // fill the static extra km price
-            var extraView = $('#weitere-KM');
-            extraView.val(priceForm.selected.overUsePrice);
-
             // update the gui to make the available prices for different included ranges selectable on demand
             var freeView = $('#freie-KM');
             if (matching.length === 1) {
@@ -340,9 +339,7 @@ var priceForm = {
                 freeView.val('');
             } else {
                 // multiple options available
-                var fvs = $('<select class="formtext" name="freie-KM" id="freie-KM" required="">' +
-                    '<option value="" disabled selected>incl. KM Option wählen</option>' +
-                    '</select>');
+                var fvs = $('<select class="formtext" name="freie-KM" id="freie-KM" required></select>');
                 matching.forEach(function(m) {
                     fvs.append('<option value="' + m.inclKm + '">' + m.inclKm + '</option>');
                 });
@@ -350,6 +347,7 @@ var priceForm = {
                 fvs.on('change', function() {
                     priceForm.changeInclRange($(this).val());
                 });
+                priceForm.selectedRange = matching[0].inclKm;
             }
 
             priceForm.calculate();

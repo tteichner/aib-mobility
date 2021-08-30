@@ -11,7 +11,7 @@ $text = '<html lang="de">
     <h4>Anfrage für Fahrzeug {vehicle}</h4>
     <p>Von: {from} Bis: {to}<br />
     Frei Km: {free}<br />
-    weitere Km: {exta}<br />
+    weitere Km: {extra}<br />
     Preis: {price}
     </p>
     <p>

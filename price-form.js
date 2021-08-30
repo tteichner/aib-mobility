@@ -215,7 +215,7 @@ var priceForm = {
 
     host: null,
 
-    init: function(host) {
+    init: function(host, index) {
         priceForm.host = host;
 
         if (!$('#request_vehicle_form').length) {
@@ -255,6 +255,12 @@ var priceForm = {
             // Date from and to are just triggers for the time based price table
             priceForm.calculate();
         });
+
+        // Auto select
+        if (index > 0) {
+            choose.val(index - 1 + '');
+            choose.trigger('change');
+        }
 
         $('#request_vehicle_form').on('submit', function(e) {
             e.preventDefault();

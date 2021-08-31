@@ -222,6 +222,8 @@ var priceForm = {
             return;
         }
 
+        $('#request_vehicle_form .success-message').hide();
+
         // Bind the known values
         var choose = $('#Mietfahrzeug-auswaehlen');
         choose.html('<option disabled selected>Mietfahrzeug auswählen</option>');
@@ -264,7 +266,6 @@ var priceForm = {
 
         $('#request_vehicle_form').on('submit', function(e) {
             e.preventDefault();
-
             var form = $(this);
             var btn = form.find('button[type="submit"]');
             btn.attr('disabled', 'disabled');
@@ -284,11 +285,12 @@ var priceForm = {
                 submit: 1
             };
             $.post(priceForm.host, data, function() {
-                btn.removeAttr('disabled');
-                form.find('input[type="text"], input[type="tel"], input[type="email"], input[type="date"], textarea, select').val('');
+                form.find('input[type="text"], input[type="number"], input[type="tel"], input[type="email"], input[type="date"], textarea, select').val('');
                 form.addClass('success');
+                $('#request_vehicle_form .success-message').show();
                 window.setTimeout(function() {
                     btn.removeAttr('disabled');
+                    $('#request_vehicle_form .success-message').hide();
                 }, 10000);
             }).fail(function(res) {
                 console.log(res);
@@ -364,13 +366,13 @@ var priceForm = {
         duration: function() {
             var from = $('#Datum-von').val();
             var to = $('#Datum-bis').val();
-            var diff = 1;
+            var diff = 0;
             if (from && to) {
                 from = luxon.DateTime.fromSQL(from);
                 to = luxon.DateTime.fromSQL(to);
                 diff = Math.abs(from.diff(to, ['months', 'days', 'hours', 'minutes', 'seconds']).days);
             }
-            return diff;
+            return diff + 1;
         }
     }
 };

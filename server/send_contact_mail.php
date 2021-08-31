@@ -34,6 +34,7 @@ if (isset($_POST['submit'])) {
         'subject' => 'Neue Anfrage',
         'body' => str_replace($keys, $vals, $text)
     ));
+    $mail = new Mailer();
     $mail->send(array(
         'to' => $_POST['email'],
         'subject' => 'Ihre Anfrage wurde empfangen',

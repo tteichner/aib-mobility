@@ -19,7 +19,6 @@ $text = '<html lang="de">
     Email: {email}<br />
     Rückrufnummer: {phone}<br />
     Adresse: {address}<br />
-    PLZ: {zip}<br />
     Ort: {town}<br />
     </p>
     <p>{notice}</p>
@@ -40,6 +39,7 @@ if (isset($_POST['submit'])) {
         'subject' => 'Neue Anfrage für Fahrzeug: ' . strip_tags($_POST['vehicle']),
         'body' => str_replace($keys, $vals, $text)
     ));
+    $mail = new Mailer();
     $mail->send(array(
         'to' => $_POST['email'],
         'subject' => 'Ihre Anfrage für das Fahrzeug: ' . strip_tags($_POST['vehicle']),

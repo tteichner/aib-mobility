@@ -22,33 +22,36 @@ class Mailer
         $this->config = $GLOBALS['AIB_ENV'][$brand];
 
         $this->instance = new PHPMailer();
-        $this->instance->IsSMTP();
-        $this->instance->SMTPAuth = true;
         $this->instance->From = $this->config['from'];
         $this->instance->FromName = 'AIB Mobility';
 
         // Split the host into domain and port on demand
-        $host = explode(':', $this->config['host']);
-        if (isset($host[1])) {
-            $this->instance->Host = $host[0];
-            $this->instance->Port = $host[1];
-        } else {
-            $this->instance->Host = $this->config['host'];
-        }
+        if ($this->config['host']) {
+            $this->instance->IsSMTP();
+            $this->instance->SMTPAuth = true;
 
-        // Add username and password credentials
-        $this->instance->Username = $this->config['username'];
-        $this->instance->Password = $this->config['password'];
+            $host = explode(':', $this->config['host']);
+            if (isset($host[1])) {
+                $this->instance->Host = $host[0];
+                $this->instance->Port = $host[1];
+            } else {
+                $this->instance->Host = $this->config['host'];
+            }
 
-        // Set security configuration
-        $this->instance->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            // Add username and password credentials
+            $this->instance->Username = $this->config['username'];
+            $this->instance->Password = $this->config['password'];
 
-        // Enable sender debug on demand
-        if ($this->config['debug']) {
-            $this->instance->SMTPDebug = SMTP::DEBUG_LOWLEVEL;
-            $this->instance->Debugoutput = function ($str, $level) {
-                error_log("($level) " . trim($str));
-            };
+            // Set security configuration
+            $this->instance->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+
+            // Enable sender debug on demand
+            if ($this->config['debug']) {
+                $this->instance->SMTPDebug = SMTP::DEBUG_LOWLEVEL;
+                $this->instance->Debugoutput = function ($str, $level) {
+                    error_log("($level) " . trim($str));
+                };
+            }
         }
     }
 

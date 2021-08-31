@@ -60,5 +60,11 @@
             <button type="submit" class="button" name="Senden" value="Senden" access="false" id="button">Senden<br></button>
         </div>
     </div>
+
+    <div class="section group success-message">
+        <div class="col span_1_of_1">
+            Ihre Anfrage wurde empfangen
+        </div>
+    </div>
 </form>
 

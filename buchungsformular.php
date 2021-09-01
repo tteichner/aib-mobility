@@ -63,7 +63,7 @@
 
     <div class="section group success-message">
         <div class="col span_1_of_1">
-            Ihre Anfrage wurde empfangen
+            <h4 class="red">Vielen Dank für Ihre Anfrage!!</h4><br><label>Wir haben diese erhalten und werden uns umgehend mit Ihnen in Verbindung setzen.</label><br><br>
         </div>
     </div>
 </form>

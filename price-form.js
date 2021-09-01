@@ -310,12 +310,12 @@ var priceForm = {
             });
         }
 
-        // Add info about included km
-        var freeView = $('#freie-KM');
-        freeView.val(priceForm.selected.prices * diff);
-
         var priceView = $('#Preis');
         if (matching) {
+            // Add info about included km
+            var freeView = $('#freie-KM');
+            freeView.val(matching.inclKm * diff);
+
             // fill the static extra km price
             var extraView = $('#weitere-KM');
             var extra = extraView.val() * priceForm.selected.overUsePrice;

@@ -4,6 +4,8 @@ var contactForm = {
     init: function(host) {
         contactForm.host = host;
 
+        $('#contact_form .success-message').hide();
+
         $('#contact_form').on('submit', function(e) {
             e.preventDefault();
 
@@ -23,8 +25,10 @@ var contactForm = {
                 btn.removeAttr('disabled');
                 form.find('input[type="text"], input[type="tel"], input[type="email"], input[type="date"], textarea, select').val('');
                 form.addClass('success');
+                $('#contact_form .success-message').show();
                 window.setTimeout(function() {
                     btn.removeAttr('disabled');
+                    $('#contact_form .success-message').hide();
                 }, 10000);
             }).fail(function(res) {
                 console.log(res);

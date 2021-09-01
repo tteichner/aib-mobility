@@ -8,7 +8,7 @@ var priceForm = {
             overUsePrice: 0.20,
             prices: [
                 {
-                    inclKm: 100,
+                    inclKm: 150,
                     dayFee: {
                         from: 1,
                         to: 3,
@@ -16,7 +16,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 1,
                         to: 3,
@@ -24,7 +24,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 4,
                         to: 7,
@@ -32,7 +32,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 8,
                         to: 10,
@@ -40,7 +40,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 11,
                         to: 13,
@@ -48,7 +48,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 14,
                         to: -1,
@@ -62,7 +62,7 @@ var priceForm = {
             overUsePrice: 0.20,
             prices: [
                 {
-                    inclKm: 100,
+                    inclKm: 150,
                     dayFee: {
                         from: 1,
                         to: 3,
@@ -70,7 +70,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 1,
                         to: 3,
@@ -78,7 +78,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 4,
                         to: 7,
@@ -86,7 +86,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 8,
                         to: 10,
@@ -94,7 +94,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 11,
                         to: 13,
@@ -102,7 +102,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 14,
                         to: -1,
@@ -116,7 +116,7 @@ var priceForm = {
             overUsePrice: 0.30,
             prices: [
                 {
-                    inclKm: 100,
+                    inclKm: 150,
                     dayFee: {
                         from: 1,
                         to: 3,
@@ -124,7 +124,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 1,
                         to: 3,
@@ -132,7 +132,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 4,
                         to: 7,
@@ -140,7 +140,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 8,
                         to: 10,
@@ -148,7 +148,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 11,
                         to: 13,
@@ -156,7 +156,7 @@ var priceForm = {
                     }
                 },
                 {
-                    inclKm: 200,
+                    inclKm: 150,
                     dayFee: {
                         from: 14,
                         to: -1,
@@ -246,7 +246,7 @@ var priceForm = {
             // The change of vehicle changes everything
             if ($(this).val().match(/^\d+$/)) {
                 priceForm.selected = priceForm.offers[$(this).val()];
-                priceForm.change();
+                priceForm.calculate();
             } else {
                 priceForm.selected = null;
                 priceForm.selectedRange = null;
@@ -304,11 +304,15 @@ var priceForm = {
         var matching = null;
         if (priceForm.selected) {
             priceForm.selected.prices.forEach(function(p) {
-                if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff) && p.inclKm === priceForm.selectedRange) {
+                if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff)) {
                     matching = p;
                 }
             });
         }
+
+        // Add info about included km
+        var freeView = $('#freie-KM');
+        freeView.val(priceForm.selected.prices * diff);
 
         var priceView = $('#Preis');
         if (matching) {
@@ -318,47 +322,6 @@ var priceForm = {
             priceView.val(((matching.dayFee.amount * diff + extra).toFixed(2) + '').replace('.', ',') + ' €');
         } else {
             priceView.val('-,-- €');
-        }
-    },
-
-    changeInclRange: function(val) {
-        priceForm.selectedRange = val * 1;
-        priceForm.calculate();
-    },
-
-    change: function() {
-        if (priceForm.selected) {
-            var matching = [];
-            var diff = priceForm.lib.duration();
-            priceForm.selected.prices.forEach(function(p) {
-                if (p.dayFee.from <= diff && (p.dayFee.to === -1 || p.dayFee.to >= diff)) {
-                    matching.push(p);
-                }
-            });
-
-            // update the gui to make the available prices for different included ranges selectable on demand
-            var freeView = $('#freie-KM');
-            if (matching.length === 1) {
-                // 1 option found
-                var fv = $('<input class="formtext" type="number" readonly value="' + matching[0].inclKm + '" name="freie-KM" id="freie-KM" required="" />');
-                freeView.replaceWith(fv);
-                priceForm.selectedRange = matching[0].inclKm;
-            } else if (matching.length === 0) {
-                freeView.val('');
-            } else {
-                // multiple options available
-                var fvs = $('<select class="formtext" name="freie-KM" id="freie-KM" required></select>');
-                matching.forEach(function(m) {
-                    fvs.append('<option value="' + m.inclKm + '">' + m.inclKm + '</option>');
-                });
-                freeView.replaceWith(fvs);
-                fvs.on('change', function() {
-                    priceForm.changeInclRange($(this).val());
-                });
-                priceForm.selectedRange = matching[0].inclKm;
-            }
-
-            priceForm.calculate();
         }
     },
 

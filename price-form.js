@@ -333,7 +333,7 @@ var priceForm = {
             if (from && to) {
                 from = luxon.DateTime.fromSQL(from);
                 to = luxon.DateTime.fromSQL(to);
-                diff = Math.abs(from.diff(to, ['months', 'days', 'hours', 'minutes', 'seconds']).days);
+                diff = Math.abs(from.diff(to, ['days']).days);
             }
             return diff + 1;
         }

@@ -36,7 +36,7 @@ var priceForm = {
 
         // Set the statics readonly
         $('#freie-KM, #Preis').each(function() {
-            $(this).prop('readonly', true);
+            $(this).prop('readonly', true).prop('disabled', true);
         });
 
         // Bind the change detection

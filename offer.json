@@ -1,0 +1,156 @@
+[
+  {
+    "label": "Kleinwagen",
+    "overUsePrice": 0.2,
+    "prices": [
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 1,
+          "to": 3,
+          "amount": 45
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 1,
+          "to": 3,
+          "amount": 45
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 4,
+          "to": 7,
+          "amount": 38
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 8,
+          "to": 10,
+          "amount": 36
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 11,
+          "to": -1,
+          "amount": 32
+        }
+      }
+    ]
+  },
+  {
+    "label": "Mittelklasse",
+    "overUsePrice": 0.2,
+    "prices": [
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 1,
+          "to": 3,
+          "amount": 65
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 1,
+          "to": 3,
+          "amount": 65
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 4,
+          "to": 7,
+          "amount": 62
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 8,
+          "to": 10,
+          "amount": 58
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 11,
+          "to": 13,
+          "amount": 55
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 14,
+          "to": -1,
+          "amount": 49
+        }
+      }
+    ]
+  },
+  {
+    "label": "SUV",
+    "overUsePrice": 0.3,
+    "prices": [
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 1,
+          "to": 3,
+          "amount": 115
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 1,
+          "to": 3,
+          "amount": 115
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 4,
+          "to": 7,
+          "amount": 105
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 8,
+          "to": 10,
+          "amount": 102
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 11,
+          "to": 13,
+          "amount": 99
+        }
+      },
+      {
+        "inclKm": 150,
+        "dayFee": {
+          "from": 14,
+          "to": -1,
+          "amount": 95
+        }
+      }
+    ]
+  }
+]

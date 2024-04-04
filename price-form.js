@@ -38,6 +38,7 @@ var priceForm = {
         $('#freie-KM, #Preis').each(function() {
             $(this).prop('readonly', true).prop('disabled', true);
         });
+        $('#weitere-KM').attr('min', '0');
 
         // Bind the change detection
         choose.on('change', function() {
@@ -115,9 +116,13 @@ var priceForm = {
             freeView.val(matching.inclKm * diff);
 
             // fill the static extra km price
-            var extraView = $('#weitere-KM');
-            var extra = extraView.val() * priceForm.selected.overUsePrice;
-            priceView.val(((matching.dayFee.amount * diff + extra).toFixed(2) + '').replace('.', ',') + ' €');
+            var extraView = $('#weitere-KM').val();
+            if (extraView >= 0) {
+                var extra = extraView * priceForm.selected.overUsePrice;
+                priceView.val(((matching.dayFee.amount * diff + extra).toFixed(2) + '').replace('.', ',') + ' €');
+            } else {
+                priceView.val('-,-- €');
+            }
         } else {
             priceView.val('-,-- €');
         }
